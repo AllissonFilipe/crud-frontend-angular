@@ -22,14 +22,11 @@ export class UserEditComponent implements OnInit {
   id = '';
   name = '';
   email = '';
-  password = '';
-  confirmPassword = '';
   cpf = '';
   phone = '';
   birth = '';
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
-  public emailPattern = '^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$';
 
   constructor(private router: Router, private route: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder) { }
 
@@ -37,25 +34,23 @@ export class UserEditComponent implements OnInit {
     this.getUser(this.route.snapshot.params['id']);
     this.userForm = this.formBuilder.group({
       'name' : [null, Validators.required],
-      'email' : [null, Validators.required],
-      'password' : [null, Validators.required],
-      'confirmPassword' : [null, Validators.required],
+      'email' : [null, [Validators.required, Validators.email]],
       'cpf' : [null, [Validators.required, Validators.maxLength(14)]],
       'phone' : [null, Validators.required],
-      'birthDate' : [null, Validators.required]
+      'birth_date' : [null, Validators.required]
     });
   }
 
   getUser(id: any) {
     this.api.getUser(id).subscribe((data: any) => {
+      console.log(data);
       this.id = data.id;
       this.userForm.setValue({
         name: data.name,
         email: data.email,
-        password: data.password,
         cpf: data.cpf,
         phone: data.phone,
-        birthDate: data.birthDate,
+        birth_date: data.birth_date,
       });
     });
   }

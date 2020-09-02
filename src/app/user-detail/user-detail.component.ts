@@ -10,7 +10,7 @@ import { User } from '../user';
 })
 export class UserDetailComponent implements OnInit {
 
-  user: User = { id: '', name: '', email: '', password: '', cpf: '', phone: '', birthDate: null };
+  user: User = { id: '', name: '', email: '', password: '', cpf: '', phone: '', birth_date: null };
   isLoadingResults = true;
 
   constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }

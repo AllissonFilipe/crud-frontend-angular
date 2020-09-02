@@ -5,5 +5,5 @@ export class User {
     password: string;
     cpf: string;
     phone: string;
-    birthDate: Date
+    birth_date: Date
   }

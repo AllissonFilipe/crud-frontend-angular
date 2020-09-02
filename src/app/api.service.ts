@@ -7,7 +7,7 @@ import { User } from './user';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = 'http://localhost:3000/api/v1/products';
+const apiUrl = 'http://localhost:3333/users';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class ApiService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(apiUrl)
       .pipe(
-        tap(user => console.log('fetched products')),
+        tap(user => console.log('fetched users')),
         catchError(this.handleError('getUsers', []))
       );
   }
@@ -33,14 +33,14 @@ export class ApiService {
 
   addUser(user: User): Observable<User> {
     return this.http.post<User>(apiUrl, user, httpOptions).pipe(
-      tap((prod: any) => console.log(`added user w/ id=${prod._id}`)),
+      tap((us: any) => console.log(`added user w/ id=${us.id}`)),
       catchError(this.handleError<User>('addUser'))
     );
   }
 
   updateUser(id: any, user: User): Observable<any> {
     const url = `${apiUrl}/${id}`;
-    return this.http.put(url, user, httpOptions).pipe(
+    return this.http.patch(url, user, httpOptions).pipe(
       tap(_ => console.log(`updated user id=${id}`)),
       catchError(this.handleError<any>('updateUser'))
     );

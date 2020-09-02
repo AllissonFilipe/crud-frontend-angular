@@ -25,7 +25,7 @@ export class UserAddComponent implements OnInit {
   confirmPassword = '';
   cpf = '';
   phone = '';
-  birthDate = '';
+  birth_date = '';
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
   public emailPattern = '^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$';
@@ -35,12 +35,12 @@ export class UserAddComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.formBuilder.group({
       'name' : [null, Validators.required],
-      'email' : [null, Validators.required, Validators.email],
+      'email' : [null, [Validators.required, Validators.email]],
       'password' : [null, Validators.required],
       'confirmPassword' : [null, Validators.required],
       'cpf' : [null, [Validators.required, Validators.maxLength(14)]],
       'phone' : [null, Validators.required],
-      'birthDate' : [null, Validators.required]
+      'birth_date' : [null, Validators.required]
     });
   }
 
@@ -48,7 +48,7 @@ export class UserAddComponent implements OnInit {
     this.isLoadingResults = true;
     this.api.addUser(this.userForm.value)
       .subscribe((res: any) => {
-          const id = res._id;
+          const id = res.id;
           this.isLoadingResults = false;
           this.router.navigate(['/user-details', id]);
         }, (err: any) => {

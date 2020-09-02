@@ -7,7 +7,7 @@
     <a mat-flat-button color="primary" [routerLink]="['/users']"><mat-icon>list</mat-icon></a>
   </div>
   <mat-card class="example-card">
-    <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+    <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()" autocomplete="off">
       <div class="row">
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
@@ -40,10 +40,10 @@
         </div>
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
-            <input type="date" matInput formControlName="birthDate"
+            <input type="date" matInput formControlName="birth_date"
                    [errorStateMatcher]="matcher">
             <mat-error>
-              <span *ngIf="!userForm.get('birthDate').valid && userForm.get('birthDate').touched">Please enter Birth Date</span>
+              <span *ngIf="!userForm.get('birth_date').valid && userForm.get('birth_date').touched">Please enter Birth Date</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
-            <input type="email" [pattern]="emailPattern" matInput placeholder="Email" formControlName="email"
+            <input type="email" matInput placeholder="Email" formControlName="email"
                    [errorStateMatcher]="matcher">
             <mat-error>
               <span *ngIf="!userForm.get('email').valid && userForm.get('email').touched">Please enter Email</span>
@@ -60,7 +60,7 @@
         </div>
         <div class="col-md-6">
           <mat-form-field class="example-full-width">
-            <input type="password" matInput placeholder="Passowrd" formControlName="password"
+            <input type="password" matInput placeholder="Password" formControlName="password"
                    [errorStateMatcher]="matcher">
             <mat-error>
               <span *ngIf="!userForm.get('password').valid && userForm.get('password').touched">Please enter password</span>
