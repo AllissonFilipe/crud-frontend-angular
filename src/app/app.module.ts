@@ -23,6 +23,9 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule } from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import {
     UserDetailComponent,
     UserAddComponent,
     UserEditComponent,
+    LoginComponent,
+    HomeComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
