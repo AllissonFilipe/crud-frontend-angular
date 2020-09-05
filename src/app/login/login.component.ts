@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   async onFormSubmit() {
     try {
-      const result = await this.accountService.login(this.loginForm);
+      const result = await this.accountService.login(this.loginForm.value);
       console.log('Login Efetuado');
 
       this.router.navigate(['']);

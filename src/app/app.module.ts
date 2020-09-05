@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule } from 'ngx-mask';
 
+import { httpInterceptorProviders } from './http-interceptors';
+
 import {
   MatInputModule,
   MatPaginatorModule,
@@ -56,7 +58,9 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     MatFormFieldModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
