@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { EmitterAlertService } from '../shared/emitter-alert/emitter-alert.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,7 +31,12 @@ export class UserAddComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   public emailPattern = '^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$';
 
-  constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router, 
+    private api: ApiService, 
+    private formBuilder: FormBuilder,
+    private alertService: EmitterAlertService,
+  ) { }
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
@@ -46,15 +52,21 @@ export class UserAddComponent implements OnInit {
 
   onFormSubmit() {
     this.isLoadingResults = true;
-    this.api.addUser(this.userForm.value)
+    if(this.userForm.get('password').value === this.userForm.get('confirmPassword').value) {
+      this.api.addUser(this.userForm.value)
       .subscribe((res: any) => {
           const id = res.id;
           this.isLoadingResults = false;
-          this.router.navigate(['/user-details', id]);
+          this.alertService.addAlert('User created successfully');
+          this.router.navigate(['/users']);
         }, (err: any) => {
           console.log(err);
           this.isLoadingResults = false;
-        });
+      });
+    } else {
+      this.isLoadingResults = false;
+      this.alertService.addEmptyAlert('Password and Confirm Password fields do not match', 'ERROR');
+    }
   }
 
   getPhoneMask(): string {

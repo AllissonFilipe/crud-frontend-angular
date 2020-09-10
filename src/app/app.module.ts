@@ -29,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
+import { EmitterAlertModule } from './shared/emitter-alert/emitter-alert.module';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +59,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    EmitterAlertModule,
+    NgbAlertModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { EmitterAlertService } from '../shared/emitter-alert/emitter-alert.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,7 +29,13 @@ export class UserEditComponent implements OnInit {
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router, private route: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private api: ApiService, 
+    private formBuilder: FormBuilder,
+    private alertService: EmitterAlertService,
+  ) { }
 
   ngOnInit() {
     this.getUser(this.route.snapshot.params['id']);
@@ -61,7 +68,8 @@ export class UserEditComponent implements OnInit {
       .subscribe((res: any) => {
           const id = res.id;
           this.isLoadingResults = false;
-          this.router.navigate(['/user-details', id]);
+          this.alertService.addAlert('User updated successfully');
+          this.router.navigate(['/users']);
         }, (err: any) => {
           console.log(err);
           this.isLoadingResults = false;

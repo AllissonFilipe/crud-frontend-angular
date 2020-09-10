@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '../shared/account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmitterAlertService } from '../shared/emitter-alert/emitter-alert.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertService: EmitterAlertService,
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['']);
     } catch (error) {
       console.log(error);
+      this.alertService.addEmptyAlert('Invalid Credentials', 'ERROR');
     }
   }
 

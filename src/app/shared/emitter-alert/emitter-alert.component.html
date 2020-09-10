@@ -1,0 +1,6 @@
+<div class="container-alert">
+  <div *ngFor="let alert of alerts">
+      <ngb-alert [type]="alert.type" [dismissible]="true" (close)="closeAlert(alert)">
+          <span class="fa mr-2" aria-hidden="true"></span>{{alert.message}} {{params}}</ngb-alert>
+  </div>
+</div>
